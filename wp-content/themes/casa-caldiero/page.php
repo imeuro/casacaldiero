@@ -32,11 +32,13 @@ Template Name: Page - Right Sidebar
               <footer>
         
                 <?php the_tags('<p class="tags"><span class="tags-title">' . __("Tags","bonestheme") . ':</span> ', ', ', '</p>'); ?>
+
+                <?php comments_template(); ?>
                 
               </footer> <!-- end article footer -->
             
             </article> <!-- end article -->
-                        
+            
             <?php endwhile; ?>    
             
             <?php else : ?>

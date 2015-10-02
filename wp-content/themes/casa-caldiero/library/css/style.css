@@ -7322,32 +7322,6 @@ a:visited:link {
 		for mobile devices.
 		*/
 }
-.navbar-header {
-  text-align: center;
-  width: 100%;
-}
-.navbar-header .navbar-brand {
-  margin: 0 auto;
-  min-height: 75px;
-  height: auto;
-  margin-left: 40px;
-  display: inline-block;
-  text-align: center;
-}
-.navbar-header .navbar-toggle {
-  position: absolute;
-  top: 15px;
-  left: 5px;
-}
-.navbar-header .navbar-toggle .icon-bar {
-  background-color: #197CB7;
-}
-.navbar-header .navbar-toggle .txt-menu {
-  color: #197CB7;
-  font-size: 0.55em;
-  line-height: 2em;
-  float: left;
-}
 /******************************************************************
 Site Name: BREW
 Author: Dan Brown
@@ -7708,9 +7682,6 @@ These are the styles for posts, pages, archive, & blog index
 (#content usually includes sidebar.
 #main is all post/entry/page content)
 ********************************/
-#content {
-  min-height: 600px;
-}
 /*******************************
 02. ARTICLE WRAPPER
 (background, borders etc for individual posts/pages)
@@ -7804,7 +7775,7 @@ These are the styles for posts, pages, archive, & blog index
 05. ENTRY CONTENT
 ********************************/
 .entry-content {
-  padding: 0 20px 20px;
+  padding: 20px;
 }
 .entry-content p {
   margin-bottom: 20px;
@@ -8040,7 +8011,7 @@ PAGINATION
 }
 /* end pagination */
 /******************************************************************
-Site Name: BREW Styles
+Site Name: casacaldiero Styles
 Author: Dan Brown
 
 Stylesheet: Tables
@@ -8048,6 +8019,47 @@ Stylesheet: Tables
 This is just for the sample BREW site.  Feel free to delete
 
 ******************************************************************/
+.vertical-align-center {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.navbar-header {
+  text-align: center;
+  width: 100%;
+}
+.navbar-header .navbar-brand {
+  margin: 0 auto;
+  min-height: 75px;
+  height: auto;
+  margin-left: 40px;
+  display: inline-block;
+  text-align: center;
+}
+.navbar-header .navbar-toggle {
+  position: absolute;
+  top: 15px;
+  left: 5px;
+}
+.navbar-header .navbar-toggle .icon-bar {
+  background-color: #197CB7;
+}
+.navbar-header .navbar-toggle .txt-menu {
+  color: #197CB7;
+  font-size: 0.55em;
+  line-height: 2em;
+  float: left;
+}
+.nav > li > a {
+  color: #e75113;
+}
+.nav > li > a:hover,
+.nav > li > a:focus {
+  color: #1579ba;
+  background-color: #ffd600;
+}
 .carousel-control span.fa {
   top: 50%;
   position: absolute;
@@ -8057,13 +8069,143 @@ This is just for the sample BREW site.  Feel free to delete
 .carousel-inner > .item > a > img {
   width: 100%;
 }
+.page .carousel {
+  margin: 75px auto;
+}
+.page .carousel-indicators {
+  bottom: -50px;
+  width: 100%;
+  left: 0;
+  margin: 0 auto;
+}
+.page .carousel-indicators li {
+  border: 1px solid #f3f3f3;
+  background-color: #f3f3f3;
+  margin: 0 4px;
+}
+.page .carousel-indicators .active {
+  width: 10px;
+  height: 10px;
+  border: 1px solid #FDEE00;
+  background-color: #FDEE00;
+}
+.page .carousel-caption {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  padding: 4px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.page .carousel-caption h3 {
+  line-height: 14px;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+.page.home .entry-content {
+  padding: 0px;
+}
+.page div.contactform input,
+.page div.contactform textarea {
+  max-width: 100%;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-top: 5px;
+}
+.page div.contactform input[type=submit] {
+  width: 100%;
+  max-width: 350px !important;
+  padding: 10px;
+  display: inline-block;
+  background-color: #fff;
+}
+.page div.contactform input[type=submit]:hover {
+  background-color: #428bca;
+  color: #fff;
+  border-color: #428bca;
+}
+.page div.contactform .wpcf7-response-output {
+  position: fixed;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 20px;
+  color: #fff;
+  text-align: center;
+  border-width: 4px 0;
+}
+.page div.contactform .wpcf7-response-output.wpcf7-mail-sent-ok {
+  background-color: #398F14;
+  background-color: rgba(57, 143, 20, 0.7);
+  color: #fff;
+}
+.page div.contactform .wpcf7-response-output.wpcf7-validation-errors {
+  border-color: #C80000;
+  background-color: #C80000;
+  background-color: rgba(200, 0, 0, 0.7);
+  color: #fff;
+}
 @media (min-width: 768px) {
+  .navbar-header {
+    margin-bottom: 40px;
+  }
   .navbar-header .navbar-brand {
     margin: 0 auto;
     display: block;
     width: 100%;
     height: 110px;
     text-align: center;
+  }
+  .navbar-collapse {
+    float: right;
+    position: relative;
+    left: -50%;
+    text-align: left;
+  }
+  .navbar-collapse .navbar-nav {
+    position: relative;
+    left: 50%;
+  }
+  .nav > li > a {
+    padding: 10px;
+  }
+  .nav > li > a:hover,
+  .nav > li > a:focus {
+    background-color: transparent;
+  }
+  .page .carousel-caption {
+    left: 50%;
+    right: 0;
+    bottom: 10%;
+    padding: 15px 30px;
+    text-align: left;
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  .page .carousel-caption h3 {
+    line-height: 24px;
+    font-size: 24px;
+    margin: 10px;
+  }
+  .page.home .entry-content {
+    padding: 20px;
+  }
+  .page.home .carousel-indicators {
+    bottom: 10px;
+  }
+}
+@media (min-width: 992px) {
+  .nav > li > a {
+    padding: 10px 15px;
+    font-weight: 700;
+    font-size: 1em;
+  }
+}
+@media (min-width: 1200px) {
+  .nav > li > a {
+    font-size: 1.25em;
   }
 }
 /*
@@ -8118,3 +8260,4 @@ the original dimensions and you are good to go.
 iPHONE 5 MEDIA QUERY
 Want to get fancy for no good reason? Knock yourself out.
 */
+/*# sourceMappingURL=style.css.map */
