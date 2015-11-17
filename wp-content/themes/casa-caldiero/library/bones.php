@@ -204,19 +204,19 @@ function bones_theme_support() {
 	// to add header image support go here: http://themble.com/support/adding-header-background-image-support/
 
 	// adding post format support
-	add_theme_support( 'post-formats',
-		array(
-			'aside',             // title less blurb
-			'gallery',           // gallery of images
-			'link',              // quick link to other site
-			'image',             // an image
-			'quote',             // a quick quote
-			'status',            // a Facebook like status update
-			'video',             // video
-			'audio',             // audio
-			'chat'               // chat transcript
-		)
-	);
+	// add_theme_support( 'post-formats',
+	// 	array(
+	// 		'aside',             // title less blurb
+	// 		'gallery',           // gallery of images
+	// 		'link',              // quick link to other site
+	// 		'image',             // an image
+	// 		'quote',             // a quick quote
+	// 		'status',            // a Facebook like status update
+	// 		'video',             // video
+	// 		'audio',             // audio
+	// 		'chat'               // chat transcript
+	// 	)
+	// );
 
 	// wp menus
 	add_theme_support( 'menus' );
@@ -225,6 +225,7 @@ function bones_theme_support() {
 	register_nav_menus(
 		array(
 			'main-nav' => __( 'The Main Menu', 'bonestheme' ),   // main nav in header
+			'lang-nav' => __( 'Language switcher', 'bonestheme' ),   // main nav in header
 		)
 	);
 } /* end bones theme support */
@@ -265,6 +266,22 @@ function bones_main_nav_fallback() {
         'link_after' => ''                             // after each link
 	) );
 }
+
+function bones_lang_nav() {
+	// display the wp3 menu if available
+    wp_nav_menu(array(
+    	'container' => false,                           			// remove nav container
+    	'container_class' => 'menu clearfix',           			// class of container (should you choose to use it)
+    	'menu' => __( 'Language switcher', 'bonestheme' ),  	// nav name
+    	'menu_class' => 'nav navbar-nav',  										// adding custom nav class
+    	'theme_location' => 'main-nav',                 			// where it's located in the theme
+    	'before' => '',                                 			// before the menu
+      'after' => '',                                  			// after the menu
+      'link_before' => '',                            			// before each link
+      'link_after' => '',                             			// after each link
+      'depth' => 1,                                   			// limit the depth of the nav
+	));
+} /* end bones main nav */
 
 // this is the fallback for footer menu
 function bones_footer_links_fallback() {

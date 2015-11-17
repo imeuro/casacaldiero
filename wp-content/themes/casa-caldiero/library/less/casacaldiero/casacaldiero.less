@@ -9,17 +9,20 @@ This is just for the sample BREW site.  Feel free to delete
 ******************************************************************/
 
 .vertical-align-center {
-  position: relative;
+  position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+.img-responsive { display: inline-block; // + tutto il resto... 
 }
 
 
 .navbar-header {
   text-align: center;
   width: 100%;
+  position: relative;
   .navbar-brand {    
     margin: 0 auto;
     min-height: 75px;
@@ -40,6 +43,28 @@ This is just for the sample BREW site.  Feel free to delete
         line-height: 2em;
         float: left;    
       }
+  }
+  div#language-switcher {
+    position: absolute;
+    right: -20px;
+    top: 60px;
+    ul li { float: left; }
+    li.lang-item-3 a {
+      text-indent: -9999px;
+      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAhCAMAAACoVtiLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjY5QzIzMEE4NTQ2MTFFNUE4RDFEODAzMzg4MkU3M0UiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjY5QzIzMEI4NTQ2MTFFNUE4RDFEODAzMzg4MkU3M0UiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpENTczQThFQjg1NDYxMUU1QThEMUQ4MDMzODgyRTczRSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpENTczQThFQzg1NDYxMUU1QThEMUQ4MDMzODgyRTczRSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoGW2uAAAAAJUExURdkaJf///yCRVmmDRrEAAAAiSURBVHjaYmBCA4xogAEdjGoY1TCqYVTDqIZRDVg0AAQYANQGBjEncgriAAAAAElFTkSuQmCC');
+      background-size: 66%;
+      background-repeat: no-repeat;
+      width: 48px;
+      height: 33px;
+    }
+    li.lang-item-6 a {
+      text-indent: -9999px;
+      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAhCAMAAACoVtiLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjY5QzIzMEU4NTQ2MTFFNUE4RDFEODAzMzg4MkU3M0UiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjY5QzIzMEY4NTQ2MTFFNUE4RDFEODAzMzg4MkU3M0UiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGNjlDMjMwQzg1NDYxMUU1QThEMUQ4MDMzODgyRTczRSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGNjlDMjMwRDg1NDYxMUU1QThEMUQ4MDMzODgyRTczRSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PkCIY9EAAAB7UExURerr8nV5rF9kn2Zqo8LE25OWvtLT5Nvc6VRZmZmcwuPj7jxCijM5hW1xp0dMkamszLm71kxRlMzO4PDw9vr6/IWItaaoyiwygIqNuX2AsS40gZ6hxDA2g7a41MXI3dwaKDk/iP///ysxgO+aoP7+/jc9h/39/np+r4eKtw41wYYAAAD5SURBVHja7FPLEoIwEAMUFVpBEEUBxS4P+f8vNKU6XKSFA57MdGe2MyTdpMWiryhHYUWCKEaJmHaCkS9SEkJHkHqPjIjzQLYMlXGqRgHC5gj9K4ooQG19cMQoLAp48ZlcntEUhYEAUfL61beo/GTyoCDbyJySmkTOXSv9rDEQwuEM2bp9p/OwgugG4SBaB+nuEdtaS+ghk0lQ9hQPdq4GSbFA6Fw9gcOnC7+1SxzP4oZtnWhPwOwMoh1Td4ft09N78O4QjVSkqPBgSMkZYnXeV5dqR2rxBWyf4blVVxdepj2NiT+QmIn5hHImfkD4m17EdDUTy5t+CTAAwE7CtA1DzIsAAAAASUVORK5CYII=');
+      background-size: 66%;
+      background-repeat: no-repeat;
+      width: 48px;
+      height: 33px;
+    }
   }
 }
 
@@ -91,7 +116,7 @@ This is just for the sample BREW site.  Feel free to delete
       padding: 10px;
       display: inline-block;
       background-color: #fff;
-      &:hover { background-color: #428bca; color: #fff; border-color: #428bca; }
+      &:hover { background-color: @brand-primary; color: #fff; border-color: @brand-primary; }
     }
     .wpcf7-response-output {
       position: fixed;
@@ -116,9 +141,47 @@ This is just for the sample BREW site.  Feel free to delete
       }
     }
   }
+  div#apartment-list {
+    width: 100%;
+    margin: 60px auto;
+    div.wp-caption {
+      width: 50% !important;
+      margin: 20px 0;
+      text-align: center;
+      background: transparent;
+     img, p {
+        width: 75%;
+        max-width: 100px;
+        margin: 0 auto; 
+        background: @gray-lighter; 
+        text-align: center;
+        clear: both;
+        display: inline-block;
+        float: none;
+      }
+    }
+  }
 }
 
+article {
+  .entry-content div.gallery {
+    width: 100%;
+    margin: 60px auto;
+    padding: 20px 0;
+    border-top: 1px solid #dfdfdf;
+    border-bottom: 1px solid #dfdfdf;
+    dl { width: 20%;
+      img {
+        width: 75%;
+        border: 1px solid @brand-primary; 
+      }
+    }
+  }
+}
 
+.archive {
+  header.article-header { z-index: 1; position: relative; }
+}
 
 @media (min-width: @screen-sm) {
   .navbar-header {
@@ -129,6 +192,11 @@ This is just for the sample BREW site.  Feel free to delete
       width: 100%;
       height: 110px;
       text-align: center;
+    }
+    div#language-switcher {
+      position: absolute;
+      right: 20px;
+      top: 20px;
     }
   }
   .navbar-collapse{
@@ -157,15 +225,41 @@ This is just for the sample BREW site.  Feel free to delete
       .entry-content { padding: 20px; }
       .carousel-indicators { bottom: 10px; }
     }
+    div#apartment-list {
+      width: 90%;
+      margin: 60px auto;
+      div.wp-caption { width: 25% !important; max-width: 199px; }
+    }
   }
-   
+
+  article {
+    .entry-content div.gallery { 
+      width: 90%;
+      dl img { width: 100%; max-width: 100px; } 
+    }
+  }
+
 }
+
 @media (min-width: @screen-md) {
   .nav > li > a {
     padding: 10px 15px;
     font-weight: 700;
     font-size: 1em;
   }
+  .page {
+    div#apartment-list {
+      width: 75%;
+      margin: 60px auto;
+    }
+  }
+  article {
+    .entry-content div.gallery { 
+      width: 75%; 
+      dl img { border: 2px solid @brand-primary } 
+    }
+  }
+
 }
 
 @media (min-width: @screen-lg) {

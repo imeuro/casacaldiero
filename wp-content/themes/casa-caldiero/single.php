@@ -4,7 +4,7 @@
 
 			<div id="content" class="clearfix row">
 
-				<div id="main" class="col-md-8 clearfix" role="main">
+				<div id="main" class="col-md-12 clearfix" role="main">
 
         		<?php get_template_part( 'breadcrumb' ); ?>
 
@@ -15,11 +15,6 @@
 							<header class="article-header">
 								<div class="titlewrap clearfix">
 									<h1 class="single-title entry-title"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h1>
-									<p class="byline vcard">
-										by <span class="author"><em><?php echo bones_get_the_author_posts_link() ?></em></span> - 
-										<time class="updated" datetime="<?php get_the_time('Y-m-j') ?>"><?php echo get_the_time(get_option('date_format')) ?></time>
-										<span class="sticky-ind pull-right"><i class="fa fa-star"></i></span>
-									</p>
 								</div>
 
 							</header> <?php // end article header ?>
@@ -59,15 +54,9 @@
                                 ); ?>
 							</section> <?php // end article section ?>
 
-							<footer class="article-footer single-footer clearfix">
-								<span class="tags pull-left"><?php printf( '<span class="">' . __( 'in %1$s&nbsp;&nbsp;', 'bonestheme' ) . '</span>', get_the_category_list(', ') ); ?> <?php the_tags( '<span class="tags-title">' . __( '<i class="fa fa-tags"></i>', 'bonestheme' ) . '</span> ', ', ', '' ); ?></span>
-              					<span class="commentnum pull-right"><a href="<?php comments_link(); ?>"><?php comments_number( '<i class="fa fa-comment"></i> 0', '<i class="fa fa-comment"></i> 1', '<i class="fa fa-comment"></i> %' ); ?></a></span>
-            				</footer> <?php // end article footer ?>
-
-
 						</article> <?php // end article ?>
 
-					<?php get_template_part( 'author-info' ); ?>
+					<?php // get_template_part( 'author-info' ); ?>
 
 					<?php if ( is_single() ) {?>
 					  <div id="single-post-nav">
@@ -91,7 +80,7 @@
 					  </div><!-- /#single-post-nav -->
 					<?php } ?>
 
-          <?php comments_template(); ?>
+          <?php // comments_template(); ?>
 
 					<?php endwhile; ?>
 
@@ -113,7 +102,7 @@
 
 				</div> <?php // end #main ?>
 
-				<?php get_sidebar(); ?>
+				<?php // get_sidebar(); ?>
 
 			</div> <?php // end #content ?>
 

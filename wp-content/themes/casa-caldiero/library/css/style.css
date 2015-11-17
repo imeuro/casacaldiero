@@ -314,6 +314,7 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
+  display: inline-block;
 }
 .img-rounded {
   border-radius: 6px;
@@ -4422,6 +4423,7 @@ a.list-group-item.active > .badge,
   display: block;
   max-width: 100%;
   height: auto;
+  display: inline-block;
   margin-left: auto;
   margin-right: auto;
 }
@@ -5440,6 +5442,7 @@ button.close {
   display: block;
   max-width: 100%;
   height: auto;
+  display: inline-block;
   line-height: 1;
 }
 .carousel-inner > .active,
@@ -7614,7 +7617,6 @@ Stylesheet: Footer
 ******************************************************************/
 #footer {
   padding-top: 30px;
-  margin-top: 60px;
   clear: both;
   color: #aaa;
 }
@@ -7815,6 +7817,18 @@ These are the styles for posts, pages, archive, & blog index
   color: #74482c;
   font-weight: 700;
   padding: 20px 0;
+}
+.article-header h1.entry-title a {
+  font-size: 1em;
+  color: #74482c;
+  font-weight: 700;
+  padding: 20px 0;
+  text-align: center;
+  display: block;
+}
+#swipebox-overlay {
+  background: #0d0d0d;
+  background: rgba(13, 13, 13, 0.75);
 }
 /*******************************
 06. ENTRY FOOTER
@@ -8020,15 +8034,19 @@ This is just for the sample BREW site.  Feel free to delete
 
 ******************************************************************/
 .vertical-align-center {
-  position: relative;
+  position: absolute;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+.img-responsive {
+  display: inline-block;
+}
 .navbar-header {
   text-align: center;
   width: 100%;
+  position: relative;
 }
 .navbar-header .navbar-brand {
   margin: 0 auto;
@@ -8051,6 +8069,30 @@ This is just for the sample BREW site.  Feel free to delete
   font-size: 0.55em;
   line-height: 2em;
   float: left;
+}
+.navbar-header div#language-switcher {
+  position: absolute;
+  right: -20px;
+  top: 60px;
+}
+.navbar-header div#language-switcher ul li {
+  float: left;
+}
+.navbar-header div#language-switcher li.lang-item-3 a {
+  text-indent: -9999px;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAhCAMAAACoVtiLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjY5QzIzMEE4NTQ2MTFFNUE4RDFEODAzMzg4MkU3M0UiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjY5QzIzMEI4NTQ2MTFFNUE4RDFEODAzMzg4MkU3M0UiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpENTczQThFQjg1NDYxMUU1QThEMUQ4MDMzODgyRTczRSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpENTczQThFQzg1NDYxMUU1QThEMUQ4MDMzODgyRTczRSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoGW2uAAAAAJUExURdkaJf///yCRVmmDRrEAAAAiSURBVHjaYmBCA4xogAEdjGoY1TCqYVTDqIZRDVg0AAQYANQGBjEncgriAAAAAElFTkSuQmCC');
+  background-size: 66%;
+  background-repeat: no-repeat;
+  width: 48px;
+  height: 33px;
+}
+.navbar-header div#language-switcher li.lang-item-6 a {
+  text-indent: -9999px;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAhCAMAAACoVtiLAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RjY5QzIzMEU4NTQ2MTFFNUE4RDFEODAzMzg4MkU3M0UiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RjY5QzIzMEY4NTQ2MTFFNUE4RDFEODAzMzg4MkU3M0UiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpGNjlDMjMwQzg1NDYxMUU1QThEMUQ4MDMzODgyRTczRSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpGNjlDMjMwRDg1NDYxMUU1QThEMUQ4MDMzODgyRTczRSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PkCIY9EAAAB7UExURerr8nV5rF9kn2Zqo8LE25OWvtLT5Nvc6VRZmZmcwuPj7jxCijM5hW1xp0dMkamszLm71kxRlMzO4PDw9vr6/IWItaaoyiwygIqNuX2AsS40gZ6hxDA2g7a41MXI3dwaKDk/iP///ysxgO+aoP7+/jc9h/39/np+r4eKtw41wYYAAAD5SURBVHja7FPLEoIwEAMUFVpBEEUBxS4P+f8vNKU6XKSFA57MdGe2MyTdpMWiryhHYUWCKEaJmHaCkS9SEkJHkHqPjIjzQLYMlXGqRgHC5gj9K4ooQG19cMQoLAp48ZlcntEUhYEAUfL61beo/GTyoCDbyJySmkTOXSv9rDEQwuEM2bp9p/OwgugG4SBaB+nuEdtaS+ghk0lQ9hQPdq4GSbFA6Fw9gcOnC7+1SxzP4oZtnWhPwOwMoh1Td4ft09N78O4QjVSkqPBgSMkZYnXeV5dqR2rxBWyf4blVVxdepj2NiT+QmIn5hHImfkD4m17EdDUTy5t+CTAAwE7CtA1DzIsAAAAASUVORK5CYII=');
+  background-size: 66%;
+  background-repeat: no-repeat;
+  width: 48px;
+  height: 33px;
 }
 .nav > li > a {
   color: #e75113;
@@ -8148,6 +8190,45 @@ This is just for the sample BREW site.  Feel free to delete
   background-color: rgba(200, 0, 0, 0.7);
   color: #fff;
 }
+.page div#apartment-list {
+  width: 100%;
+  margin: 60px auto;
+}
+.page div#apartment-list div.wp-caption {
+  width: 50% !important;
+  margin: 20px 0;
+  text-align: center;
+  background: transparent;
+}
+.page div#apartment-list div.wp-caption img,
+.page div#apartment-list div.wp-caption p {
+  width: 75%;
+  max-width: 100px;
+  margin: 0 auto;
+  background: #eeeeee;
+  text-align: center;
+  clear: both;
+  display: inline-block;
+  float: none;
+}
+article .entry-content div.gallery {
+  width: 100%;
+  margin: 60px auto;
+  padding: 20px 0;
+  border-top: 1px solid #dfdfdf;
+  border-bottom: 1px solid #dfdfdf;
+}
+article .entry-content div.gallery dl {
+  width: 20%;
+}
+article .entry-content div.gallery dl img {
+  width: 75%;
+  border: 1px solid #428bca;
+}
+.archive header.article-header {
+  z-index: 1;
+  position: relative;
+}
 @media (min-width: 768px) {
   .navbar-header {
     margin-bottom: 40px;
@@ -8158,6 +8239,11 @@ This is just for the sample BREW site.  Feel free to delete
     width: 100%;
     height: 110px;
     text-align: center;
+  }
+  .navbar-header div#language-switcher {
+    position: absolute;
+    right: 20px;
+    top: 20px;
   }
   .navbar-collapse {
     float: right;
@@ -8195,12 +8281,37 @@ This is just for the sample BREW site.  Feel free to delete
   .page.home .carousel-indicators {
     bottom: 10px;
   }
+  .page div#apartment-list {
+    width: 90%;
+    margin: 60px auto;
+  }
+  .page div#apartment-list div.wp-caption {
+    width: 25% !important;
+    max-width: 199px;
+  }
+  article .entry-content div.gallery {
+    width: 90%;
+  }
+  article .entry-content div.gallery dl img {
+    width: 100%;
+    max-width: 100px;
+  }
 }
 @media (min-width: 992px) {
   .nav > li > a {
     padding: 10px 15px;
     font-weight: 700;
     font-size: 1em;
+  }
+  .page div#apartment-list {
+    width: 75%;
+    margin: 60px auto;
+  }
+  article .entry-content div.gallery {
+    width: 75%;
+  }
+  article .entry-content div.gallery dl img {
+    border: 2px solid #428bca;
   }
 }
 @media (min-width: 1200px) {

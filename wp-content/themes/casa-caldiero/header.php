@@ -57,6 +57,7 @@
 
               <a class="navbar-brand" href="<?php bloginfo( 'url' ) ?>/" title="<?php bloginfo( 'name' ) ?>" rel="homepage"><img src="<?php echo get_stylesheet_directory_uri().'/library/images/logo-casa-caldiero.png'; ?>" class="img-responsive img-center" alt="<?php bloginfo( 'name' ) ?>" /></a>
 
+              <div id="language-switcher"><?php bones_lang_nav(); ?></div>
             </div>
 
             <div class="navbar-collapse collapse navbar-responsive-collapse">
