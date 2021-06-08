@@ -98,6 +98,11 @@ add_action( 'widgets_init', '_tk_widgets_init' );
  */
 function _tk_scripts() {
 
+	//	FIX TO:
+	//	Uncaught Error: Bootstrap's JavaScript requires jQuery version 1.9.1 or higher, but lower than version 3
+    wp_deregister_script('jquery');
+    wp_register_script('jquery', ("https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"), false, '1.12.4');
+
 	// Import the necessary TK Bootstrap WP CSS additions
 	wp_enqueue_style( '_tk-bootstrap-wp', THEME_DIR_URI . '/includes/css/bootstrap-wp.css' );
 
