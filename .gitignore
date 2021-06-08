@@ -4,3 +4,7 @@
 /*/
 !/wp-content/
 !/dbb/
+
+
+/wp-content/cache/*
+*/autoptimize/*
