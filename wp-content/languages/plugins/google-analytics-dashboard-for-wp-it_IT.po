@@ -1,0 +1,157 @@
+# Translation of Plugins - Google Analytics Dashboard for WP by ExactMetrics (formerly GADWP) - Stable (latest release) in Italian
+# This file is distributed under the same license as the Plugins - Google Analytics Dashboard for WP by ExactMetrics (formerly GADWP) - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2021-01-23 09:54:51+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: it\n"
+"Project-Id-Version: Plugins - Google Analytics Dashboard for WP by ExactMetrics (formerly GADWP) - Stable (latest release)\n"
+
+#. Author of the plugin
+#: includes/emails/class-emails.php:254 includes/admin/admin.php:31
+#: includes/admin/admin.php:34 includes/admin/admin.php:42
+#: lite/includes/admin/dashboard-widget.php:97
+#: lite/includes/admin/wp-site-health.php:246
+#: lite/includes/admin/wp-site-health.php:298
+#: lite/includes/admin/wp-site-health.php:325
+#: lite/includes/admin/wp-site-health.php:363
+#: lite/includes/admin/wp-site-health.php:390
+#: lite/includes/admin/wp-site-health.php:417
+#: lite/includes/admin/wp-site-health.php:442
+#: lite/includes/admin/wp-site-health.php:481
+msgid "ExactMetrics"
+msgstr "ExactMetrics"
+
+#: languages/vue.php:2081
+msgid "Hide Announcements"
+msgstr "Nascondi annunci"
+
+#: includes/admin/tracking.php:242
+msgid "Once Weekly"
+msgstr "Una volta alla settimana"
+
+#: includes/admin/review.php:128
+msgid "No thanks"
+msgstr "No grazie"
+
+#: languages/vue.php:2500
+msgid "Usage Tracking"
+msgstr "Monitoraggio dell'utilizzo"
+
+#: languages/vue.php:2077
+msgid "Hides plugin announcements and update details. This includes critical notices we use to inform about deprecations and important required configuration changes."
+msgstr "Nasconde gli annunci del plugin e i dettagli di aggiornamento. Ciò include le avvertenze che utilizziamo per informarvi sulle modifiche importanti alla configurazione richieste e sconsigliate."
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://exactmetrics.com"
+msgstr "https://exactmetrics.com"
+
+#. Translators: Placeholder is replaced with WPForms.
+#: languages/vue.php:2189
+msgid "Recommended Plugin: %s"
+msgstr "Plugin consigliato: %s"
+
+#: languages/vue.php:739
+msgid "Ecommerce"
+msgstr "Ecommerce"
+
+#: languages/vue.php:223
+msgid "Custom Dimensions"
+msgstr "Dimensioni personalizzate"
+
+#. Plugin Name of the plugin
+msgid "Google Analytics Dashboard for WP (GADWP)"
+msgstr "Google Analytics Dashboard per WP (GADWP)"
+
+#: languages/vue.php:220
+msgid "eCommerce Tracking"
+msgstr "Monitoraggio e-commerce"
+
+#: assets/lib/pandora/class-am-deactivation-survey.php:310
+msgid "Other"
+msgstr "Altro"
+
+#: includes/gutenberg/headline-tool/headline-tool.php:764
+msgid "technology"
+msgstr "tecnologia"
+
+#: languages/vue.php:1257
+msgid "Bounce Rate"
+msgstr "Frequenza di rimbalzo"
+
+#: includes/admin/admin.php:34 includes/admin/admin.php:42
+#: includes/admin/admin.php:188 languages/vue.php:308
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: languages/vue.php:345
+msgid "Real-Time"
+msgstr "In tempo reale"
+
+#: languages/vue.php:1248
+msgid "Sessions"
+msgstr "Sessioni"
+
+#. Description of the plugin
+msgid "Displays Google Analytics Reports and Real-Time Statistics in your Dashboard. Automatically inserts the tracking code in every page of your website."
+msgstr ""
+"Mostra le statistiche in tempo reale e i rapporti di Google Analytics nella tua bacheca.\n"
+"Inserisce automaticamente il codice di monitoraggio in ogni pagina del tuo sito."
+
+#: languages/vue.php:2014
+msgid "Title"
+msgstr "Titolo"
+
+#. Translators: Number of days.
+#: languages/vue.php:2202
+msgid "Last %s days"
+msgstr "Ultimi %s giorni"
+
+#: includes/gutenberg/headline-tool/headline-tool.php:229
+msgid "three"
+msgstr "tre"
+
+#: languages/vue.php:2209
+msgid "Analytics"
+msgstr "Analytics"
+
+#: languages/vue.php:1154
+msgid "Permissions"
+msgstr "Permessi"
+
+#: languages/vue.php:412
+msgid "Save Changes"
+msgstr "Salva le modifiche"
+
+#: includes/gutenberg/headline-tool/headline-tool.php:944
+msgid "video"
+msgstr "video"
+
+#: languages/vue.php:1117
+msgid "Automatic Updates"
+msgstr "Aggiornamenti automatici"
+
+#: languages/vue.php:689
+msgid "Google Analytics"
+msgstr "Google Analytics"
+
+#: languages/vue.php:18
+msgid "Today"
+msgstr "Oggi"
+
+#: languages/vue.php:21
+msgid "Yesterday"
+msgstr "Ieri"
+
+#: languages/vue.php:821
+msgid "Events Tracking"
+msgstr "Monitoraggio eventi"
+
+#: languages/vue.php:551
+msgid "Advanced Tracking"
+msgstr "Impostazioni avanzate di monitoraggio"
