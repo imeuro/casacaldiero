@@ -1,61 +1,130 @@
-=== Responsive Lightbox by dFactory ===
+=== Responsive Lightbox & Gallery ===
 Contributors: dfactory
 Donate link: http://www.dfactory.eu/
-Tags: gallery, images, lightbox, links, photos, template, theme, photo, image, picture, slideshow, modal, overlay, YouTube, Vimeo, video, videos
-Requires at least: 4.0
-Tested up to: 4.3.1
-Stable tag: 1.6.5
+Tags: gallery, galleries, image, images, responsive, lightbox, photo, photography, masonry, video, builder
+Requires at least: 5.0
+Tested up to: 5.6.1
+Stable tag: 2.3.2
+Requires PHP: 5.2.4
 License: MIT License
 License URI: http://opensource.org/licenses/MIT
 
-Responsive Lightbox allows users to view larger versions of images and galleries in a lightbox (overlay) effect optimized for mobile devices.
+The most popular lightbox plugin and responsive gallery builder for WordPress.
 
 == Description ==
 
-[Responsive Lightbox](http://www.dfactory.eu/plugins/responsive-lightbox/) allows users to view larger versions of images and galleries in a lightbox (overlay) effect optimized for mobile devices.
+= Everything You Need in a WordPress Gallery Plugin =
 
-For more information, check out plugin page at [dFactory](http://www.dfactory.eu/) or see the [Live demo](http://www.dfactory.eu/plugins/responsive-lightbox/) on our site.
+<a href="https://dfactory.eu/products/responsive-lightbox/?utm_source=repo&utm_medium=link&utm_campaign=responsive-lightbox-plugin-free">Responsive Lightbox and Gallery plugin</a> is a fully fledged WordPress gallery plugin with a powerful Drag & Drop Gallery Builder and Lightbox functionality that's used daily by more than 300,000 active users and downloaded over 3 Million times.
 
-= Features include: =
+The beauty of it is how easy it is for you to customize it and enhance its features thanks to <a href="?utm_source=repo&utm_medium=link&utm_campaign=responsive-lightbox-plugin-free">free and premium extensions</a>. 
 
-* Select from 6 responsive lightbox scripts (SwipeBox, prettyPhoto, FancyBox, Nivo Lightbox, Image Lightbox, Tos "R" Us)
+= Why You Should Use Responsive Lightbox and Gallery Plugin =
+
+= Easiest Gallery Builder =
+
+Say goodbye to coding. With the built-in drag and drop Gallery builder, you will be able to create beautiful galleries, customize them, and add your preferred styles in minutes.
+
+= Vast Customization Options = 
+
+Responsive Lightbox and Gallery plugin is packed with customization options per each gallery and lightbox style so you can tweak them to suit your website's audience with just a few clicks.
+
+= SEO-Friendly and Lightweight =
+
+Responsive Lightbox and Gallery plugin is built keeping SEO and performance in mind, making it lightweight and fast when it comes to page load.
+
+= Premium Extensions =
+
+Looking to provide a premium experience to your visitors? Responsive Lightbox and Gallery plugin offers plenty of premium extensions to provide you with even more flexibility and customization options. 
+
+Need more reasons? <a href="https://dfactory.eu/products/responsive-lightbox/?utm_source=repo&utm_medium=link&utm_campaign=responsive-lightbox-plugin-free">Check them out here</a>!
+
+= What some of our 300,000+ active users say about Responsive Lightbox and Gallery plugin =
+
+>Amazing Gallery plugin!
+
+>Versatile and powerful for both sliders and galleries, many features and style options.
+
+>Really easy to use. Takes all the fiddling out of the process of creating a responsive gallery/lightbox.
+
+>I needed a lightbox plugin that works reliably. This marvelous plugin does the magic. Now I can spend more on my photography and less time customizing WordPress.
+
+>This plugin is quite flexible and effective. The functionality choices are broad and all quite easy to configure.
+
+= Need more galley options? =
+
+Responsive Lightbox and Gallery plugin can be extended with our <a href="?utm_source=repo&utm_medium=link&utm_campaign=responsive-lightbox-plugin-free">premium extensions</a>:
+
+<strong>Premium Extensions:</strong>
+> [Photo & Art bundle](https://www.dfactory.eu/products/photo-art-bundle/)
+> [Justified Gallery](https://www.dfactory.eu/products/justified-gallery/)
+> [Expander Gallery](https://www.dfactory.eu/products/expander-gallery/)
+> [Hidden Gallery](https://www.dfactory.eu/products/hidden-gallery/)
+> [Masonry Image Gallery](https://www.dfactory.eu/products/masonry-image-gallery/)
+> [Slider Gallery](https://www.dfactory.eu/products/slider-gallery/)
+> [Lightcase Lightbox](https://www.dfactory.eu/products/lightcase-lightbox/)
+> [PhotoSwipe Lightbox](https://www.dfactory.eu/products/photoswipe-lightbox/)
+> [Lightgallery Lightbox](https://www.dfactory.eu/products/lightgallery-lightbox/)
+> [Strip Lightbox](https://www.dfactory.eu/products/strip-lightbox/)
+> [Fancybox Pro](https://www.dfactory.eu/products/fancybox-pro/)
+
+= Full Feature List =
+
+* Powerful and easy-to-use gallery builder
+* 3 beautiful gallery templates - Grid, Slider and Masonry
+* 8 responsive lightbox scripts (SwipeBox, prettyPhoto, FancyBox, Nivo Lightbox, Image Lightbox, Tos "R" Us, Featherlight, Magnific Popup)
+* Create galleries from Media Library or Post attached images
+* Media Folders with a drag & drop interface
+* Access to millions of images through Remote Library
+* Option to import remote images to Media Library
+* Gutenberg editor compatibility
+* Iframe, Ajax, HTML5 and Inline lightbox content support
+* Advanced pagination, incl. AJAX and infinite scroll
 * Automatically add lightbox to WordPress image galleries
 * Automatically add lightbox to WordPress image links
 * Automatically add lightbox to WordPress video links (YouTube, Vimeo)
+* Automatically add lightbox to widgets content
+* Automatically add lightbox to WordPress comments content
+* WooCommerce product gallery support
+* Popular Page builders compatibility
+* Gallery widget
+* Single image widget
 * Option to display single post images as a gallery
 * Option to modify native WP gallery links image size
 * Option to set gallery images title from image title, caption, alt or description
 * Option to force lightbox for custom WP gallery replacements like Jetpack tiled galleries
 * Option to trigger lightbox on custom jquery events
 * Option to conditionally load scripts and styles only on pages that have images or galleries in post content
-* Enter a selector for lightbox
 * Highly customizable settings for each of the lightbox scripts
+* Highly customizable settings for each gallery
 * Multisite support
-* Filter hook for embeddding different scripts based on any custom conditions (page, post, category, user id, etc.)
 * .pot file for translations included
 
-= Available Extensions: =
+== Frequently Asked Questions ==
 
-* [Justified Gallery](https://www.dfactory.eu/products/justified-gallery/)
-* [Lightcase Lightbox](https://www.dfactory.eu/products/lightcase-lightbox/)
+= Who is Responsive Lightbox & Gallery for? =
 
-= Translations: =
+Responsive Lightbox and Gallery is the perfect solution for anyone who wants to create incredibly beautiful responsive galleries with images and/or videos with lightbox effect. This means bloggers, photographers, designers can choose from one of the many layouts available and publish their gallery in minutes.
 
-* Czech - by Vaclav Hnilicka
-* Dutch - by [Sebas Blom](http://www.basbva.nl/)
-* Estonian - by Hugo Amtmann
-* French - by [Li-An](http://www.echodesplugins.li-an.fr/)
-* German - by [Andreas Reitberger](http://wdbase.de)
-* Hungarian - by [Zsolt Boda](http://cmfrt.net/)
-* Japanese - by stranger-jp
-* Persian - by [Ali Mirzaei](http://alimir.ir/)
-* Polish - by Bartosz Arendt
-* Romanian - by [Victor Chiritoiu](http://contacter.ro)
-* Russian - by [Konstantin](http://l-konstantin.ru)
-* Serbo-Croatian - by [Borisa Djuraskovic](http://www.webhostinghub.com/)
-* Slovak - by [Patrik Zec](http://patwist.com)
-* Spanish - by [Gaston](http://www.detodoynada.com.ar)
+= Do I need coding skills to use this plugin? =
 
+Thanks to the built-in gallery builder, anyone can create a professional responsive gallery and take advantage of the many layouts and styles. Know how to code? You can adjust the plugin to meet your requirements.
+
+= What's the Photo & Art Bundle? =
+
+Many users love to have different ways to customize their galleries. This bundle gives you access to all our premium extensions, 1-year direct support and all updates, at a hugely discounted price (70% off). [Learn more here](https://dfactory.eu/products/photo-art-bundle/?utm_source=repo&utm_medium=link&utm_campaign=responsive-lightbox-plugin-free).
+
+= Will this plugin slow down my site? =
+
+Responsive Lightbox and Gallery plugin is a lightweight WordPress gallery plugin built with performance and speed in mind. This means your page load time won't be affected.
+
+= How can I get the most of this plugin? =
+
+Responsive Lightbox and Gallery plugin comes with plenty of documentation to guide you while creating and customizing your galleries. On top of that, you'll find plenty of articles on how to add the lightbox effect, how to use the gallery builder, and much more! Need to fix a specific issue? Share it on our forum and get the answer you need!  
+
+= I need a specific style, layout or effect for my galleries. What should I do? =
+
+Responsive Lightbox and Gallery plugin comes with many styles and effects already in it's free version and can be enhanced with 10+ premium extensions like Masonry Gallery Pro, Hidden Gallery, Slider Gallery, and many more. <a href="https://dfactory.eu/products/responsive-lightbox-gallery-extensions/?utm_source=repo&utm_medium=link&utm_campaign=responsive-lightbox-plugin-free">Check them all out here</a> and pick your preferred one!
 
 == Installation ==
 
@@ -63,16 +132,136 @@ For more information, check out plugin page at [dFactory](http://www.dfactory.eu
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to the Responsive Lightbox settings and set your desired options.
 
-== Frequently Asked Questions ==
-
-No questions yet.
-
 == Screenshots ==
 
 1. screenshot-1.png
 2. screenshot-2.jpg
 
 == Changelog ==
+
+= 2.3.2 =
+* Fix: Add option to enable/disable advanced capability management
+* Fix: Insert gallery into post not working in Gutenberg editor
+* Fix: Remove "ready" deprecated event from front.js
+* Fix: array_combine() function error class-folders.php
+* FIx: $.uniqueSort is not a function error
+
+= 2.3.1 =
+* Fix: Plugin capabilities not granted properly
+
+= 2.3.0 =
+* New: WordPress 5.6 compatibility
+* New: Capabilities management
+* New: Admin breadcrumb navigation
+
+= 2.2.3 =
+* Fix: Media Folders js and CSS issues in Media Library
+* Fix: Empty src attribute in Remote Library inserted images
+* Tweak: Remove featured image thumbnail from Media Library access
+
+= 2.2.2 =
+* Fix: Add Media button not working for custom post types
+* Fix: Underscore.js dependency missing
+* Fix: Undefined variable: current_color_scheme
+* Fix: Root Folder missing in media upload dropdown
+
+= 2.2.1 =
+* Fix: Invalid arguments passed in class-folders.php
+
+= 2.2.0 =
+* New: Introducing Remote Library feature
+* New: Gutenberg editor compatibility
+* Tweak: PHP 7.3 support
+
+= 2.1.0 =
+* New: Introducing Media Library Folders
+* New: Media folder gallery type
+* New: Filter gallery by category
+* Fix: Ajax Pagination not working when logged out
+* Fix: CSS issues with multiple Basic grid galleries on one page
+* Fix: Removed call to a sanitize_field function
+
+= 2.0.5 =
+* Fix: Escaped characters on titles and descriptions
+* Fix: Gallery shortcode not accepting image order
+* Fix: Gallery using default parameters instead of the settings
+* Fix: PHP fatal error if gallery builder is disabled
+
+= 2.0.4 =
+* Fix: Gallery sorting and orderby not working
+* Fix: Slow db query on post edit screen
+* Fix: WooCommerce gallery undefined method for get_gallery_image_ids
+* Fix: Uncaught Argument in preview_post_link function
+* Fix: Removed a callback to sanitize_textarea_field
+
+= 2.0.3 =
+* Fix: Gallery shortcode thumbnails not accepting size parameter
+* Fix: Basic templates for WooCommerce gallery 
+
+= 2.0.2 =
+* Fix: Default WordPress gallery issue
+
+= 2.0.1 =
+* Fix: Syntax error in frontend.php on line 522
+
+= 2.0 =
+* New: Powerful gallery builder
+* New: 3 gallery templates - Basic Grid, Slider and Masonry
+* New: Magnific Popup lightbox
+* New: Iframe, Ajax, HTML5 and Inline lightbox content support
+* Tweak: Improved Visual Composer compatibility
+* Tweak: Revamped admin interface
+
+= 1.7.1 =
+* New: Tos "R" Us overlay close option
+* Fix: License activation issues
+* Tweak: Featherlight script update to 1.7.0
+* Tweak: Imagelightbox script update
+
+= 1.7.0 =
+* New: Add lightbox to widgets content
+* New: Add lightbox to WordPress comments
+* New: Gallery widget
+* New: Single image widget
+* New: Visual Composer compatibility
+* New: WooCommerce 3.0 compatibility
+* New: [Fancybox Pro](https://www.dfactory.eu/products/fancybox-pro/) premium extension
+* New: [Expander Gallery](https://www.dfactory.eu/products/expander-gallery/) premium extension
+* New: [Hidden Gallery](https://www.dfactory.eu/products/hidden-gallery/) premium extension
+* Tweak: Attachment ID query optimization
+* Tweak: Revamped lightbox settings screen
+* Tweak: Improved custom galleries compatibility
+
+= 1.6.12 =
+* Fix: WooCommerce single product image lightbox
+
+= 1.6.11 =
+* Tweak: Added plugin documentation link
+* Tweak: Nivo lightbox update to 1.3.1
+
+= 1.6.10 =
+* New: Featherlight lightbox script
+* New: [Lightgallery Lightbox](https://www.dfactory.eu/products/lightgallery-lightbox/) premium extension
+* New: [Slider Gallery](https://www.dfactory.eu/products/slider-gallery/) premium extension
+
+= 1.6.9 =
+* New: [PhotoSwipe Lightbox](https://www.dfactory.eu/products/photoswipe-lightbox/) premium extension
+* Fix: data-rel attribute missing in multiline links
+* Tweak: Removed local translation files in favor of WP repository translations
+* Tweak: SwipeBox script updated to 1.4.4
+
+= 1.6.8 =
+* Tweak: Tos "R" Us script caption issue when empty link title
+* Tweak: Undefined notice on extentions activation.
+
+= 1.6.7 =
+* New: WooCommerce product gallery support
+* New: [Masonry Image Gallery](https://www.dfactory.eu/products/masonry-image-gallery/) and [Strip Lightbox](https://www.dfactory.eu/products/strip-lightbox/) extensions
+* Tweak: Tos"R"Us script updated to 2.4.2
+* Tweak: Settings handler improvements.
+
+= 1.6.6 =
+* Tweak: Confirmed WordPress 4.4 compatibility
 
 = 1.6.5 =
 * Fix: Lightbox activated on non-video youtube links
@@ -271,6 +460,5 @@ Initial release
 
 == Upgrade Notice ==
 
-= 1.6.5 =
-* Fix: Lightbox activated on non-video youtube links
-* Tweak: Added a way to change settings required capability
+= 2.3.2 =
+* Fix: Multiple bugfixes and improvements

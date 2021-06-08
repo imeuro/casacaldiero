@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: Simple Image Sizes
-Plugin URI: https://github.com/Rahe/'simple-image-sizes'
+Plugin URI: https://github.com/Rahe/simple-image-sizes
 Description: Add options in media setting page for images sizes
-Version: 3.0
+Version: 3.2.1
 Author: Rahe
 Author URI: http://nicolas-juen.fr
-Text Domain: 'simple-image-sizes'
+Text Domain: simple-image-sizes
 Domain Path: /languages
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -28,33 +28,23 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-define( 'SIS_URL', plugin_dir_url ( __FILE__ ) );
+define( 'SIS_URL', plugin_dir_url( __FILE__ ) );
 define( 'SIS_DIR', plugin_dir_path( __FILE__ ) );
-define( 'SIS_VERSION', '3.0' );
+define( 'SIS_VERSION', '3.2.1' );
 define( 'SIS_OPTION', 'custom_image_sizes' );
 
-// Function for easy load files
-function _sis_load_files($dir, $files, $prefix = '') {
-	foreach ( $files as $file ) {
-		if ( is_file( $dir . $prefix . $file . ".php" ) ) {
-			require_once( $dir . $prefix . $file . ".php" );
-		}
-	}	
+if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+	require __DIR__ . '/vendor/autoload.php';
 }
 
-// Plugin client classes
-_sis_load_files( SIS_DIR . 'classes/', array( 'main' ) );
+add_action( 'plugins_loaded', 'init_sis' );
+function init_sis() {
+	new Rahe\Simple_Image_Sizes\Main();
 
-// Admins classes
-_sis_load_files( SIS_DIR . 'classes/admin/', array( 'main', 'post', 'media' ) );
-
-add_action ( 'plugins_loaded', 'initSIS' );
-function initSIS() {
-	if( is_admin() ) {
-		new SIS_Admin_Main();
-		new SIS_Admin_Post();
-		new SIS_Admin_Media();
+	if ( is_admin() ) {
+		new \Rahe\Simple_Image_Sizes\Admin\Main();
+		new \Rahe\Simple_Image_Sizes\Admin\Post();
+		new \Rahe\Simple_Image_Sizes\Admin\Media();
 	}
-	
-	new SIS_Client();
-} 
+
+}

@@ -1,247 +1,258 @@
 <?php
+/**
+ * @package Polylang
+ */
 
-/*
- * filters content by language on frontend
+/**
+ * Filters content by language on frontend
  *
  * @since 1.2
  */
-class PLL_Frontend_Filters extends PLL_Filters{
-	/*
-	 * constructor: setups filters and actions
+class PLL_Frontend_Filters extends PLL_Filters {
+	/**
+	 * Internal non persistent cache object.
+	 *
+	 * @var PLL_Cache
+	 */
+	public $cache;
+
+	/**
+	 * Constructor: setups filters and actions
 	 *
 	 * @since 1.2
 	 *
 	 * @param object $polylang
 	 */
-	public function __construct(&$polylang) {
-		parent::__construct($polylang);
+	public function __construct( &$polylang ) {
+		parent::__construct( $polylang );
 
-		// filters the WordPress locale
-		add_filter('locale', array(&$this, 'get_locale'));
+		$this->cache = new PLL_Cache();
 
-		// translates page for posts and page on front
-		add_filter('option_page_on_front', 'pll_get_post');
-		add_filter('option_page_for_posts', 'pll_get_post');
+		// Filters the WordPress locale
+		add_filter( 'locale', array( $this, 'get_locale' ) );
 
-		// filter sticky posts by current language
-		add_filter('option_sticky_posts', array(&$this, 'option_sticky_posts'));
+		// Filter sticky posts by current language
+		add_filter( 'option_sticky_posts', array( $this, 'option_sticky_posts' ) );
 
-		// adds cache domain when querying terms
-		add_filter('get_terms_args', array(&$this, 'get_terms_args'));
+		// Rewrites archives links to filter them by language
+		add_filter( 'getarchives_join', array( $this, 'getarchives_join' ), 10, 2 );
+		add_filter( 'getarchives_where', array( $this, 'getarchives_where' ), 10, 2 );
 
-		// filters categories and post tags by language
-		add_filter('terms_clauses', array(&$this, 'terms_clauses'), 10, 3);
+		// Filters the widgets according to the current language
+		add_filter( 'widget_display_callback', array( $this, 'widget_display_callback' ) );
+		add_filter( 'sidebars_widgets', array( $this, 'sidebars_widgets' ) );
 
-		// rewrites archives, next and previous post links to filter them by language
-		foreach (array('getarchives', 'get_previous_post', 'get_next_post') as $filter)
-			foreach (array('_join', '_where') as $clause)
-				add_filter($filter.$clause, array(&$this, 'posts'.$clause));
+		if ( $this->options['media_support'] ) {
+			add_filter( 'widget_media_image_instance', array( $this, 'widget_media_instance' ), 1 ); // Since WP 4.8
+		}
 
-		// filters the widgets according to the current language
-		add_filter('widget_display_callback', array(&$this, 'widget_display_callback'), 10, 2);
+		// Strings translation ( must be applied before WordPress applies its default formatting filters )
+		foreach ( array( 'widget_text', 'widget_title' ) as $filter ) {
+			add_filter( $filter, 'pll__', 1 );
+		}
 
-		// strings translation (must be applied before WordPress applies its default formatting filters)
-		foreach (array('widget_text', 'widget_title', 'option_blogname', 'option_blogdescription', 'option_date_format', 'option_time_format') as $filter)
-			add_filter($filter, 'pll__', 1);
+		// Translates biography
+		add_filter( 'get_user_metadata', array( $this, 'get_user_metadata' ), 10, 4 );
 
-		// translates biography
-		add_filter('get_user_metadata', array(&$this,'get_user_metadata'), 10, 3);
-
-		// set posts and terms language when created from frontend (ex with P2 theme)
-		add_action('save_post', array(&$this, 'save_post'), 200, 2);
-		add_action('create_term', array(&$this, 'save_term'), 10, 3);
-		add_action('edit_term', array(&$this, 'save_term'), 10, 3);
-
-		if ($this->options['media_support'])
-			add_action('add_attachment', array(&$this, 'set_default_language'));
-
-		// support theme customizer
-		// FIXME of course does not work if 'transport' is set to 'postMessage'
-		if (isset($_POST['wp_customize'], $_POST['customized'])) {
-			add_filter('pre_option_page_on_front', 'pll_get_post', 20);
-			add_filter('pre_option_page_for_post', 'pll_get_post', 20);
-			add_filter('pre_option_blogname', 'pll__', 20);
-			add_filter('pre_option_blogdescription', 'pll__', 20);
+		if ( Polylang::is_ajax_on_front() ) {
+			add_filter( 'load_textdomain_mofile', array( $this, 'load_textdomain_mofile' ) );
 		}
 	}
 
-	/*
-	 * returns the locale based on current language
+	/**
+	 * Returns the locale based on current language
 	 *
 	 * @since 0.1
 	 *
-	 * @param string $locale
 	 * @return string
 	 */
-	public function get_locale($locale) {
+	public function get_locale() {
 		return $this->curlang->locale;
 	}
 
-	/*
-	 * filters sticky posts by current language
+	/**
+	 * Filters sticky posts by current language.
 	 *
 	 * @since 0.8
 	 *
-	 * @param array $posts list of sticky posts ids
-	 * @return array modified list of sticky posts ids
+	 * @param int[] $posts List of sticky posts ids.
+	 * @return int[] Modified list of sticky posts ids
 	 */
-	public function option_sticky_posts($posts) {
-		if ($this->curlang && !empty($posts)) {
-			update_object_term_cache($posts, 'post'); // to avoid queries in foreach
-			foreach ($posts as $key => $post_id) {
-				$lang = $this->model->get_post_language($post_id);
-				if (empty($lang) || $lang->term_id != $this->curlang->term_id)
-					unset($posts[$key]);
+	public function option_sticky_posts( $posts ) {
+		global $wpdb;
+
+		// Do not filter sticky posts on REST requests as $this->curlang is *not* the 'lang' parameter set in the request
+		if ( ! defined( 'REST_REQUEST' ) && ! empty( $this->curlang ) && ! empty( $posts ) ) {
+			$_posts = wp_cache_get( 'sticky_posts', 'options' ); // This option is usually cached in 'all_options' by WP
+
+			if ( empty( $_posts ) || ! is_array( $_posts[ $this->curlang->term_taxonomy_id ] ) ) {
+				$posts = array_map( 'intval', $posts );
+				$posts = implode( ',', $posts );
+
+				$languages = $this->model->get_languages_list( array( 'fields' => 'term_taxonomy_id' ) );
+				$_posts = array_fill_keys( $languages, array() ); // Init with empty arrays
+				$languages = implode( ',', $languages );
+
+				// PHPCS:ignore WordPress.DB.PreparedSQL
+				$relations = $wpdb->get_results( "SELECT object_id, term_taxonomy_id FROM {$wpdb->term_relationships} WHERE object_id IN ({$posts}) AND term_taxonomy_id IN ({$languages})" );
+
+				foreach ( $relations as $relation ) {
+					$_posts[ $relation->term_taxonomy_id ][] = (int) $relation->object_id;
+				}
+				wp_cache_add( 'sticky_posts', $_posts, 'options' );
 			}
+
+			$posts = $_posts[ $this->curlang->term_taxonomy_id ];
 		}
+
 		return $posts;
 	}
 
-	/*
-	 * adds language dependent cache domain when querying terms
-	 * useful as the 'lang' parameter is not included in cache key by WordPress
+	/**
+	 * Modifies the sql request for wp_get_archives to filter by the current language
 	 *
-	 * @since 1.3
+	 * @since 1.9
 	 *
-	 * @param array $args
-	 * @return array
+	 * @param string $sql JOIN clause
+	 * @param array  $r   wp_get_archives arguments
+	 * @return string modified JOIN clause
 	 */
-	public function get_terms_args($args) {
-		$lang = isset($args['lang']) ? $args['lang'] : $this->curlang->slug;
-		$key = '_' . (is_array($lang) ? implode(',', $lang) : $lang);
-		$args['cache_domain'] = empty($args['cache_domain']) ? 'pll' . $key : $args['cache_domain'] . $key;
-		return $args;
+	public function getarchives_join( $sql, $r ) {
+		return ! empty( $r['post_type'] ) && $this->model->is_translated_post_type( $r['post_type'] ) ? $sql . $this->model->post->join_clause() : $sql;
 	}
 
-	/*
-	 * filters categories and post tags by language when needed
+	/**
+	 * Modifies the sql request for wp_get_archives to filter by the current language
 	 *
-	 * @since 0.2
+	 * @since 1.9
 	 *
-	 * @param array $clauses sql clauses
-	 * @param array $taxonomies
-	 * @param array $args get_terms arguments
-	 * @return array modified sql clauses
+	 * @param string $sql WHERE clause
+	 * @param array  $r   wp_get_archives arguments
+	 * @return string modified WHERE clause
 	 */
-	public function terms_clauses($clauses, $taxonomies, $args) {
-		// does nothing except on taxonomies which are filterable
-		if (!$this->model->is_translated_taxonomy($taxonomies))
-			return $clauses;
-
-		// adds our clauses to filter by language
-		return $this->model->terms_clauses($clauses, isset($args['lang']) ? $args['lang'] : $this->curlang);
+	public function getarchives_where( $sql, $r ) {
+		return ! empty( $r['post_type'] ) && $this->model->is_translated_post_type( $r['post_type'] ) ? $sql . $this->model->post->where_clause( $this->curlang ) : $sql;
 	}
 
-	/*
-	 * modifies the sql request for wp_get_archives an get_adjacent_post to filter by the current language
-	 *
-	 * @since 0.1
-	 *
-	 * @param string $sql join clause
-	 * @return string modified join clause
-	 */
-	public function posts_join($sql) {
-		return $sql . $this->model->join_clause('post');
-	}
-
-	/*
-	 * modifies the sql request for wp_get_archives and get_adjacent_post to filter by the current language
-	 *
-	 * @since 0.1
-	 *
-	 * @param string $sql where clause
-	 * @return string modified where clause
-	 */
-	public function posts_where($sql) {
-		preg_match("#post_type = '([^']+)'#", $sql, $matches);	// find the queried post type
-		return !empty($matches[1]) && $this->model->is_translated_post_type($matches[1]) ? $sql . $this->model->where_clause($this->curlang, 'post') : $sql;
-	}
-
-	/*
-	 * filters the widgets according to the current language
-	 * don't display if a language filter is set and this is not the current one
+	/**
+	 * Filters the widgets according to the current language
+	 * Don't display if a language filter is set and this is not the current one
 	 *
 	 * @since 0.3
 	 *
-	 * @param array $instance widget settings
-	 * @param object $widget WP_Widget object
+	 * @param array $instance Widget settings
 	 * @return bool|array false if we hide the widget, unmodified $instance otherwise
 	 */
-	public function widget_display_callback($instance, $widget) {
-		return !empty($instance['pll_lang']) && $instance['pll_lang'] != $this->curlang->slug ? false : $instance;
+	public function widget_display_callback( $instance ) {
+		// FIXME it looks like this filter is useless, now the we use the filter sidebars_widgets
+		return ! empty( $instance['pll_lang'] ) && $instance['pll_lang'] != $this->curlang->slug ? false : $instance;
 	}
 
-	/*
-	 * translates biography
+	/**
+	 * Remove widgets from sidebars if they are not visible in the current language
+	 * Needed to allow is_active_sidebar() to return false if all widgets are not for the current language. See #54
+	 *
+	 * @since 2.1
+	 * @since 2.4 The result is cached as the function can be very expensive in case there are a lot of widgets
+	 *
+	 * @param array $sidebars_widgets An associative array of sidebars and their widgets
+	 * @return array
+	 */
+	public function sidebars_widgets( $sidebars_widgets ) {
+		global $wp_registered_widgets;
+
+		if ( empty( $wp_registered_widgets ) ) {
+			return $sidebars_widgets;
+		}
+
+		$cache_key         = md5( maybe_serialize( $sidebars_widgets ) );
+		$_sidebars_widgets = $this->cache->get( "sidebars_widgets_{$cache_key}" );
+
+		if ( false !== $_sidebars_widgets ) {
+			return $_sidebars_widgets;
+		}
+
+		foreach ( $sidebars_widgets as $sidebar => $widgets ) {
+			if ( 'wp_inactive_widgets' === $sidebar || empty( $widgets ) ) {
+				continue;
+			}
+
+			foreach ( $widgets as $key => $widget ) {
+				// Nothing can be done if the widget is created using pre WP2.8 API :(
+				// There is no object, so we can't access it to get the widget options
+				if ( ! isset( $wp_registered_widgets[ $widget ]['callback'] ) || ! is_array( $wp_registered_widgets[ $widget ]['callback'] ) || ! isset( $wp_registered_widgets[ $widget ]['callback'][0] ) || ! is_object( $wp_registered_widgets[ $widget ]['callback'][0] ) || ! method_exists( $wp_registered_widgets[ $widget ]['callback'][0], 'get_settings' ) ) {
+					continue;
+				}
+
+				$widget_settings = $wp_registered_widgets[ $widget ]['callback'][0]->get_settings();
+				$number          = $wp_registered_widgets[ $widget ]['params'][0]['number'];
+
+				// Remove the widget if not visible in the current language
+				if ( ! empty( $widget_settings[ $number ]['pll_lang'] ) && $widget_settings[ $number ]['pll_lang'] !== $this->curlang->slug ) {
+					unset( $sidebars_widgets[ $sidebar ][ $key ] );
+				}
+			}
+		}
+
+		$this->cache->set( "sidebars_widgets_{$cache_key}", $sidebars_widgets );
+
+		return $sidebars_widgets;
+	}
+
+	/**
+	 * Translates media in media widgets
+	 *
+	 * @since 2.1.5
+	 *
+	 * @param array $instance Widget instance data
+	 * @return array
+	 */
+	public function widget_media_instance( $instance ) {
+		if ( empty( $instance['pll_lang'] ) && $instance['attachment_id'] && $tr_id = pll_get_post( $instance['attachment_id'] ) ) {
+			$instance['attachment_id'] = $tr_id;
+			$attachment = get_post( $tr_id );
+
+			if ( $instance['caption'] && ! empty( $attachment->post_excerpt ) ) {
+				$instance['caption'] = $attachment->post_excerpt;
+			}
+
+			if ( $instance['alt'] && $alt_text = get_post_meta( $tr_id, '_wp_attachment_image_alt', true ) ) {
+				$instance['alt'] = $alt_text;
+			}
+
+			if ( $instance['image_title'] && ! empty( $attachment->post_title ) ) {
+				$instance['image_title'] = $attachment->post_title;
+			}
+		}
+		return $instance;
+	}
+
+	/**
+	 * Translates biography
 	 *
 	 * @since 0.9
 	 *
-	 * @param null $null
-	 * @param int $id user id
+	 * @param null   $null
+	 * @param int    $id       User id
 	 * @param string $meta_key
+	 * @param bool   $single   Whether to return only the first value of the specified $meta_key
 	 * @return null|string
 	 */
-	public function get_user_metadata($null, $id, $meta_key) {
-		return $meta_key == 'description' && $this->curlang->slug != $this->options['default_lang'] ? get_user_meta($id, 'description_'.$this->curlang->slug, true) : $null;
+	public function get_user_metadata( $null, $id, $meta_key, $single ) {
+		return 'description' === $meta_key && $this->curlang->slug !== $this->options['default_lang'] ? get_user_meta( $id, 'description_' . $this->curlang->slug, $single ) : $null;
 	}
 
-	/*
-	 * allows to set a language by default for posts if it has no language yet
+	/**
+	 * Filters the translation files to load when doing ajax on front
+	 * This is needed because WP the language files associated to the user locale when a user is logged in
 	 *
-	 * @since 1.5.4
+	 * @since 2.2.6
 	 *
-	 * @param int $post_id
+	 * @param string $mofile Translation file name
+	 * @return string
 	 */
-	public function set_default_language($post_id) {
-		if (!$this->model->get_post_language($post_id)) {
-			if (isset($_REQUEST['lang']))
-				$this->model->set_post_language($post_id, $_REQUEST['lang']);
-
-			elseif (($parent_id = wp_get_post_parent_id($post_id)) && $parent_lang = $this->model->get_post_language($parent_id))
-				$this->model->set_post_language($post_id, $parent_lang);
-
-			else
-				$this->model->set_post_language($post_id, $this->curlang);
-		}
-	}
-
-	/*
-	 * called when a post (or page) is saved, published or updated
-	 * does nothing except on post types which are filterable
-	 * sets the language but does not allow to modify it
-	 *
-	 * @since 1.1
-	 *
-	 * @param int $post_id
-	 * @param object $post
-	 * @param bool $update whether it is an update or not
-	 */
-	public function save_post($post_id, $post) {
-		if ($this->model->is_translated_post_type($post->post_type))
-			$this->set_default_language($post_id);
-	}
-
-	/*
-	 * called when a category or post tag is created or edited
-	 * does nothing except on taxonomies which are filterable
-	 * sets the language but does not allow to modify it
-	 *
-	 * @since 1.1
-	 *
-	 * @param int $term_id
-	 * @param int $tt_id term taxonomy id
-	 * @param string $taxonomy
-	 */
-	public function save_term($term_id, $tt_id, $taxonomy) {
-		if ($this->model->is_translated_taxonomy($taxonomy) && !$this->model->get_term_language($term_id)) {
-			if (isset($_REQUEST['lang']))
-				$this->model->set_term_language($term_id, $_REQUEST['lang']);
-
-			elseif (($term = get_term($term_id, $taxonomy)) && !empty($term->parent) && $parent_lang = $this->model->get_term_language($term->parent))
-				$this->model->set_term_language($term_id, $parent_lang);
-
-			else
-				$this->model->set_term_language($term_id, $this->curlang);
-		}
+	public function load_textdomain_mofile( $mofile ) {
+		$user_locale = get_user_locale();
+		return str_replace( "{$user_locale}.mo", "{$this->curlang->locale}.mo", $mofile );
 	}
 }

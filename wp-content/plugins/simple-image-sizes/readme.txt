@@ -3,8 +3,9 @@ Contributors: Rahe
 Donate link: http://www.beapi.fr/donate/
 Tags: images, image, custom sizes, custom images, thumbnail regenerate, thumbnail, regenerate
 Requires at least: 3.5
-Tested up to: 3.9
-Stable tag: 3.0
+Tested up to: 4.9.1
+Stable tag: 3.2.1
+Requires PHP: 5.6.33
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -48,6 +49,47 @@ And then you can choose if the image is displayed on the media insertion or not 
 3. Choose the sizes to regenerate and regenerate them
 
 == Changelog ==
+* 3.2.1
+    * Remove the .git file
+    * Add phpcs file
+* 3.2.0
+    * Compatibility to 4.9.X
+    * Reformat and clean some code and improve maintenability
+* 3.1.1
+    * Make translatable the link on admin featured image metabox
+    * Add filter to allow to remove the button : filter SIS/Admin/Post/Display_Thumbnail_Regenerate
+* 3.1.0
+    * Regenerate images from the featured image
+    * Use wp_send_json since the minimum WordPress version is 3.5
+* 3.0.10
+    * Remove text-domain on the header for language pack
+* 3.0.9
+    * Reuse the after_setup_theme for image size registering
+    * Code formatting and cleaning
+    * Check compatibility wth 4.3
+* 3.0.8
+    * Fix potential bug on error ajax
+    * Stop using init hook and use after_setup_theme for image size registering
+    * Update underscore cdn version for WP install without it
+    * Remove useless timer_start
+* 3.0.7
+    * Fix bug on single image regeneration upload page
+    * Fix bug https://github.com/Rahe/Simple-image-sizes/issues/30
+* 3.0.6
+    * Fix bug for the image adding
+* 3.0.5
+    * Fix bug on condition
+* 3.0.4
+	* Fix global add_image_size
+* 3.0.3
+	* Add Hebrew translations thanks to Atar4U
+* 3.0.2
+	* Fix version check for the image crop positions
+* 3.0.1
+	* Change the template render method for non apache webservers : https://wordpress.org/support/topic/fatal-error-1190?replies=6
+	* Remove ambigious ids for the css bugging WooCommerce : https://wordpress.org/support/topic/bad-css-style-administration and
+	* Right code for counting the elements on backoffice  : https://github.com/Rahe/Simple-image-sizes/issues/20
+	* Fix bug on regenation and _e instead of __ : https://plugins.trac.wordpress.org/ticket/2259
 * 3.0
 	* Revamping all the code, change classes and structure
 	* Use grunt for compiling files

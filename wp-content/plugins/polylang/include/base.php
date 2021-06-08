@@ -1,120 +1,170 @@
 <?php
+/**
+ * @package Polylang
+ */
 
-/*
- * base class for both admin and frontend
+/**
+ * Base class for both admin and frontend
  *
  * @since 1.2
  */
 abstract class PLL_Base {
-	public $links_model, $model, $options;
+	/**
+	 * Stores the plugin options.
+	 *
+	 * @var array
+	 */
+	public $options;
 
-	/*
-	 * constructor
+	/**
+	 * @var PLL_Model
+	 */
+	public $model;
+
+	/**
+	 * Instance of a child class of PLL_Links_Model.
+	 *
+	 * @var PLL_Links_Model
+	 */
+	public $links_model;
+
+	/**
+	 * Registers hooks on insert / update post related actions and filters.
+	 *
+	 * @var PLL_CRUD_Posts
+	 */
+	public $posts;
+
+	/**
+	 * Registers hooks on insert / update term related action and filters.
+	 *
+	 * @var PLL_CRUD_Terms
+	 */
+	public $terms;
+
+	/**
+	 * Constructor.
 	 *
 	 * @since 1.2
 	 *
-	 * @param object $links_model
+	 * @param PLL_Links_Model $links_model Links Model.
 	 */
-	public function __construct(&$links_model) {
+	public function __construct( &$links_model ) {
 		$this->links_model = &$links_model;
 		$this->model = &$links_model->model;
 		$this->options = &$this->model->options;
 
-		add_action('widgets_init', array(&$this, 'widgets_init'));
+		$GLOBALS['l10n_unloaded']['pll_string'] = true; // Short-circuit _load_textdomain_just_in_time() for 'pll_string' domain in WP 4.6+
 
-		// user defined strings translations
-		add_action('pll_language_defined', array(&$this, 'load_strings_translations'), 5);
+		add_action( 'widgets_init', array( $this, 'widgets_init' ) );
 
-		// switch_to_blog
-		add_action('switch_blog', array(&$this, 'switch_blog'), 10, 2);
+		// User defined strings translations
+		add_action( 'pll_language_defined', array( $this, 'load_strings_translations' ), 5 );
+		add_action( 'change_locale', array( $this, 'load_strings_translations' ) ); // Since WP 4.7
+		add_action( 'personal_options_update', array( $this, 'load_strings_translations' ), 1, 0 ); // Before WP, for confirmation request when changing the user email.
+
+		// Switch_to_blog
+		add_action( 'switch_blog', array( $this, 'switch_blog' ), 10, 2 );
 	}
 
-	/*
-	 * registers our widgets
+	/**
+	 * Instantiates classes reacting to CRUD operations on posts and terms,
+	 * only when at least one language is defined.
+	 *
+	 * @since 2.6
+	 *
+	 * @return void
+	 */
+	public function init() {
+		if ( $this->model->get_languages_list() ) {
+			$this->posts = new PLL_CRUD_Posts( $this );
+			$this->terms = new PLL_CRUD_Terms( $this );
+
+			// WordPress options.
+			new PLL_Translate_Option( 'blogname', array(), array( 'context' => 'WordPress' ) );
+			new PLL_Translate_Option( 'blogdescription', array(), array( 'context' => 'WordPress' ) );
+			new PLL_Translate_Option( 'date_format', array(), array( 'context' => 'WordPress' ) );
+			new PLL_Translate_Option( 'time_format', array(), array( 'context' => 'WordPress' ) );
+		}
+	}
+
+	/**
+	 * Registers our widgets
 	 *
 	 * @since 0.1
+	 *
+	 * @return void
 	 */
 	public function widgets_init() {
-		register_widget('PLL_Widget_Languages');
+		register_widget( 'PLL_Widget_Languages' );
 
-		// overwrites the calendar widget to filter posts by language
-		if (!defined('PLL_WIDGET_CALENDAR') || PLL_WIDGET_CALENDAR) {
-			unregister_widget('WP_Widget_Calendar');
-			register_widget('PLL_Widget_Calendar');
-		}
-
-		// overwrites the recent posts and recent comments widget to use a language dependant cache key
-		// useful only if using a cache plugin
-		if (defined('WP_CACHE') && WP_CACHE) {
-			if (!defined('PLL_WIDGET_RECENT_POSTS') || PLL_WIDGET_RECENT_POSTS) {
-				unregister_widget('WP_Widget_Recent_Posts');
-				register_widget('PLL_Widget_Recent_Posts');
-			}
-
-			if (!defined('PLL_WIDGET_RECENT_COMMENTS') || PLL_WIDGET_RECENT_COMMENTS) {
-				unregister_widget('WP_Widget_Recent_Comments');
-				register_widget('PLL_Widget_Recent_Comments');
-			}
+		// Overwrites the calendar widget to filter posts by language
+		if ( ! defined( 'PLL_WIDGET_CALENDAR' ) || PLL_WIDGET_CALENDAR ) {
+			unregister_widget( 'WP_Widget_Calendar' );
+			register_widget( 'PLL_Widget_Calendar' );
 		}
 	}
 
-	/*
-	 * loads user defined strings translations
+	/**
+	 * Loads user defined strings translations
 	 *
 	 * @since 1.2
+	 * @since 2.1.3 $locale parameter added.
+	 *
+	 * @param string $locale Locale. Defaults to current locale.
+	 * @return void
 	 */
-	public function load_strings_translations() {
-		$mo = new PLL_MO();
-		$mo->import_from_db($this->model->get_language(get_locale()));
-		$GLOBALS['l10n']['pll_string'] = &$mo;
+	public function load_strings_translations( $locale = '' ) {
+		if ( empty( $locale ) ) {
+			$locale = ( is_admin() && ! Polylang::is_ajax_on_front() ) ? get_user_locale() : get_locale();
+		}
+
+		$language = $this->model->get_language( $locale );
+
+		if ( ! empty( $language ) ) {
+			$mo = new PLL_MO();
+			$mo->import_from_db( $language );
+			$GLOBALS['l10n']['pll_string'] = &$mo;
+		} else {
+			unset( $GLOBALS['l10n']['pll_string'] );
+		}
 	}
 
-	/*
-	 * resets some variables when switching blog
-	 * applies only if Polylang is active on the new blog
+	/**
+	 * Resets some variables when the blog is switched.
+	 * Applied only if Polylang is active on the new blog.
 	 *
 	 * @since 1.5.1
 	 *
-	 * @return bool not used by WP but by child class
+	 * @param int $new_blog_id  New blog ID.
+	 * @param int $prev_blog_id Previous blog ID.
+	 * @return void
 	 */
-	public function switch_blog($new_blog, $old_blog) {
-		$plugins = ($sitewide_plugins = get_site_option('active_sitewide_plugins')) && is_array($sitewide_plugins) ? array_keys($sitewide_plugins) : array();
-		$plugins = array_merge($plugins, get_option('active_plugins', array()));
-
-		// 2nd test needed when Polylang is not networked activated
-		// 3rd test needed when Polylang is networked activated and a new site is created
-		if ($new_blog != $old_blog && in_array(POLYLANG_BASENAME, $plugins) && get_option('polylang')) {
-			$this->options = get_option('polylang'); // needed for menus
+	public function switch_blog( $new_blog_id, $prev_blog_id ) {
+		if ( $this->is_active_on_new_blog( $new_blog_id, $prev_blog_id ) ) {
+			$this->options = get_option( 'polylang' ); // Needed for menus.
+			remove_action( 'pre_option_rewrite_rules', array( $this->links_model, 'prepare_rewrite_rules' ) );
 			$this->links_model = $this->model->get_links_model();
-			return true;
 		}
-		return false;
 	}
 
-	/*
-	 * some backward compatibility with Polylang < 1.2
-	 * allows for example to call $polylang->get_languages_list() instead of $polylang->model->get_languages_list()
-	 * this works but should be slower than the direct call, thus an error is triggered in debug mode
+	/**
+	 * Checks if Polylang is active on the new blog when the blog is switched.
 	 *
-	 * @since 1.2
+	 * @since 3.0
 	 *
-	 * @param string $func function name
-	 * @param array $args function arguments
+	 * @param int $new_blog_id  New blog ID.
+	 * @param int $prev_blog_id Previous blog ID.
+	 * @return bool
 	 */
-	public function __call($func, $args) {
-		foreach ($this as $prop => &$obj)
-			if (is_object($obj) && method_exists($obj, $func)) {
-				if (WP_DEBUG) {
-					$debug = debug_backtrace();
-					trigger_error(sprintf(
-						'%1$s was called incorrectly in %3$s on line %4$s: the call to $polylang->%1$s() has been deprecated in Polylang 1.2, use $polylang->%2$s->%1$s() instead.' . "\nError handler",
-						$func, $prop, $debug[1]['file'], $debug[1]['line']
-					));
-				}
-				return call_user_func_array(array($obj, $func), $args);
-			}
+	protected function is_active_on_new_blog( $new_blog_id, $prev_blog_id ) {
+		$plugins = ( $sitewide_plugins = get_site_option( 'active_sitewide_plugins' ) ) && is_array( $sitewide_plugins ) ? array_keys( $sitewide_plugins ) : array();
+		$plugins = array_merge( $plugins, get_option( 'active_plugins', array() ) );
 
-		$debug = debug_backtrace();
-		trigger_error(sprintf('Call to undefined function $polylang->%1$s() in %2$s on line %3$s' . "\nError handler", $func, $debug[0]['file'], $debug[0]['line']), E_USER_ERROR);
+		/*
+		 * The 2nd test is needed when Polylang is not networked activated.
+		 * The 3rd test is needed when Polylang is networked activated and a new site is created.
+		 */
+		return $new_blog_id !== $prev_blog_id && in_array( POLYLANG_BASENAME, $plugins ) && get_option( 'polylang' );
 	}
 }
