@@ -37,5 +37,15 @@
 
 <?php wp_footer(); ?>
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5EE2D8RYGB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5EE2D8RYGB');
+</script>
+
 </body>
 </html>
