@@ -1,6 +1,7 @@
 /*
 !/.gitignore
 !/README.md
+.cursor.json
 /*/
 !/wp-content/
 !/dbb/
